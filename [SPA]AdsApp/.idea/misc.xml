@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpServers">
+    <option name="servers">
+      <server deployment_server="d4328c54-f2f9-43b4-a1c5-674defb4949a" host="127.0.0.1" name="Xdebug" validation_dir="C:\xampp\htdocs" />
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" />
+</project>
+
