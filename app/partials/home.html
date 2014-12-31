@@ -7,7 +7,7 @@
             <div class="panel-body" ng-controller="Categories">
                 <ul>
                     <li ng-repeat="category in categories">
-                        <a ng-href="#/" ng-click="filterByCategory(category.id)">{{category.name}}</a>
+                        <a ng-href="#/" id="{{category.id}}" ng-click="filterByCategory(category.id)">{{category.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -19,7 +19,8 @@
             <div class="panel-body" ng-controller="Towns">
                 <ul>
                     <li ng-repeat="town in towns">
-                        <a href="#/" ng-click="filterByTown(town.id)">{{town.name}}</a>
+                        <a href="#/" id="{{town.id}}" ng-click="filterByTown(town.id)">{{town.name}}</a>
+                        <span>{{town.id}}</span>
                     </li>
                 </ul>
             </div>
@@ -28,12 +29,13 @@
     <section class="col-md-9">
         <div class="row">
             <ul class="col-md-12">
-                <li ng-repeat="ad in data.ads | filter:{categoryId: categoryFilter}: filter:{townId: townFilter}">
+                <li ng-repeat="ad in data.ads | filter:{categoryId: categoryFilter} | filter:{townId: townFilter}">
                     <!--| filter:townFilter-->
                     <div class="row">
                         <h3 class="col-sm-10"><strong>{{ad.title}}</strong></h3>
                         <span class="col-sm-2">
                             {{ad.date | date: 'hh-MMM-yyyy'}}
+                            <span>{{data.ads.length}}</span>
                         </span>
                     </div>
                     <div class="row">
@@ -73,7 +75,7 @@
                                     City:
                                 </div>
                                 <div class="col-md-9" ng-controller="Towns" ng-cloak>
-                                    {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}
+                                    {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}<span>   {{ad.townId}}</span>
                                 </div>
                             </div>
                         </div>
@@ -81,15 +83,7 @@
                 </li>
             </ul>
         </div>
-        <ul class="pagination pagination-sm">
-            <li class="disabled"><a href="#">«</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
-    </section>
+        <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-click="pageChanged()"></pagination>
 
+    </section>
 </main>

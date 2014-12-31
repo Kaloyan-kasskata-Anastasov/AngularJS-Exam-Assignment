@@ -38,9 +38,24 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
+    function pageChangeTo(page,limit,success,error){
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/ads?startpage='+page+'&pagesize='+limit+'',
+            data:{'startPage':page,'pageSize':limit}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
     return{
         getAll: getAll,
         getCategories: getCategories,
-        getTowns: getTowns
+        getTowns: getTowns,
+        pageChangeTo:pageChangeTo
     }
 });
