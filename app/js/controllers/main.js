@@ -8,7 +8,7 @@ adsApp.controller('Main', function ($scope, publicData) {
             $scope.currentPage = 1;
             $scope.totalItems = data.numItems;
             $scope.numberOfPages=data.numPages;
-            $scope.itemsPerPage = 7;
+            $scope.itemsPerPage = 10;
         },
         function (error, status, headers, config) {
             $scope.errorStack = error;
