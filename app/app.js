@@ -1,1 +1,1 @@
-var adsApp = angular.module('adsApp', ['ngRoute','ui.bootstrap']);
+var adsApp = angular.module('adsApp', ['ngRoute', 'ui.bootstrap']);

@@ -29,6 +29,7 @@ adsApp.factory('publicData', function publicData($http) {
         $http({
             method: 'GET',
             url: 'http://softuni-ads.azurewebsites.net/api/towns'
+
         })
             .success(function (data, status, headers, config) {
                 success(data, status, headers(), config);
@@ -42,7 +43,6 @@ adsApp.factory('publicData', function publicData($http) {
         $http({
             method: 'GET',
             url: 'http://softuni-ads.azurewebsites.net/api/ads?startpage='+page+'&pagesize='+limit+'',
-            data:{'startPage':page,'pageSize':limit}
         })
             .success(function (data, status, headers, config) {
                 success(data, status, headers(), config);
@@ -52,10 +52,26 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
+    function register(data,success,error){
+        $http({
+            method: 'POST',
+            url: 'http://softuni-ads.azurewebsites.net/api/register',
+            data:JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+
     return{
         getAll: getAll,
         getCategories: getCategories,
         getTowns: getTowns,
-        pageChangeTo:pageChangeTo
+        pageChangeTo:pageChangeTo,
+        register:register
     }
 });

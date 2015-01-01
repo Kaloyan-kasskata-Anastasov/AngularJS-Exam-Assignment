@@ -1,18 +1,32 @@
 var categoryFilter = '';
 var townFilter = '';
+var userPages;
 
 adsApp.controller('Main', function ($scope, publicData) {
     publicData.getAll(
         function (data, status, headers, config) {
-            $scope.data = data;
             $scope.currentPage = 1;
             $scope.totalItems = data.numItems;
             $scope.numberOfPages=data.numPages;
-            $scope.itemsPerPage = 10;
+            $scope.itemsPerPage = 7;
+            publicData.pageChangeTo(
+                $scope.currentPage,
+                $scope.itemsPerPage,
+                function (data, status, headers, config) {
+                    $scope.data = data;
+                },
+                function (error, status, headers, config) {
+                    $scope.errorStack = error;
+                });
         },
         function (error, status, headers, config) {
             $scope.errorStack = error;
         });
+
+    $scope.pageSizeChanged=function(value){
+        $scope.itemsPerPage = value;
+        $scope.pageChanged();
+    }
 
     $scope.pageChanged = function () {
         publicData.pageChangeTo(
@@ -25,7 +39,7 @@ adsApp.controller('Main', function ($scope, publicData) {
                 $scope.errorStack = error;
             });
         console.log($scope.currentPage);
-    };
+    }
 
     $scope.filterByCategory = function (categoryId) {
         categoryFilter = categoryId;
