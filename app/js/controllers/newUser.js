@@ -1,37 +1,38 @@
-adsApp.directive('passwordMatch', [function () {
+angular.module('UserValidation', []).directive('validPasswordC', function () {
     return {
-        restrict: 'A',
-        scope:true,
         require: 'ngModel',
-        link: function (scope, elem , attrs,control) {
-            var checker = function () {
-
-                //get the value of the first password
-                var e1 = scope.$eval(attrs.ngModel);
-
-                //get the value of the other password
-                var e2 = scope.$eval(attrs.passwordMatch);
-                return e1 == e2;
-            };
-            scope.$watch(checker, function (n) {
-
-                //set the form control to valid if both
-                //passwords are the same, else invalid
-                control.$setValidity("unique", n);
-            });
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue, $scope) {
+                var noMatch = viewValue != scope.form.password.$viewValue
+                ctrl.$setValidity('noMatch', !noMatch)
+            })
         }
-    };
-}]);
+    }
+});
 adsApp.controller('NewUser', function ($scope, publicData) {
-    console.log($scope.newUser);
     $scope.register = function () {
         publicData.register(
             $scope.newUser,
             function (data, status, headers, config) {
                 $scope.userData = data;
+                console.log($scope.userData.access_token);
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
             });
     }
+    $scope.reset = function() {
+        if (form) {
+           $scope.newUser = {};
+        }
+    };
+    $scope.reset();
+
+    $scope.addAlert = function() {
+        $scope.alerts.push({msg: 'Another alert!'});
+    };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 });

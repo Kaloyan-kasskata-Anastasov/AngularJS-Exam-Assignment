@@ -1,8 +1,7 @@
 var categoryFilter = '';
 var townFilter = '';
-var userPages;
 
-adsApp.controller('Main', function ($scope, publicData) {
+adsApp.controller('Main', function ($scope, publicData,$location) {
     publicData.getAll(
         function (data, status, headers, config) {
             $scope.currentPage = 1;
@@ -28,6 +27,10 @@ adsApp.controller('Main', function ($scope, publicData) {
         $scope.pageChanged();
     }
 
+    $scope.cancel = function(){
+        $location.path('/home');
+    }
+
     $scope.pageChanged = function () {
         publicData.pageChangeTo(
             $scope.currentPage,
@@ -38,7 +41,6 @@ adsApp.controller('Main', function ($scope, publicData) {
             function (error, status, headers, config) {
                 $scope.errorStack = error;
             });
-        console.log($scope.currentPage);
     }
 
     $scope.filterByCategory = function (categoryId) {

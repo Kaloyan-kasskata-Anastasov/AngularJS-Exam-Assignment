@@ -1,21 +1,22 @@
-adsApp.config(function ($routeProvider, $locationProvider) {
+adsApp.config(function ($routeProvider) {
     //$locationProvider.html5Mode(true);
-
+    //$locationProvider
     $routeProvider
         .when('/register',
         {
-            templateUrl: 'partials/register.html',
-            controller: ''
+            templateUrl: 'partials/register.html'
         })
         .when('/login',
         {
-            templateUrl: 'partials/login.html',
-            controller: ''
+            templateUrl: 'partials/login.html'
         })
         .when('/home',
         {
-            templateUrl: 'partials/home.html',
-            controller: ''
+            templateUrl: 'partials/home.html'
+        })
+        .when('/bye',
+        {
+            templateUrl: 'partials/bye.html'
         })
         .otherwise(
         {

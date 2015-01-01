@@ -4686,6 +4686,9 @@ a.thumbnail.active {
   margin-bottom: 21px;
   border: 1px solid transparent;
   border-radius: 0;
+  height: 35px;
+  line-height: 0;
+    text-align: center;
 }
 .alert h4 {
   margin-top: 0;
