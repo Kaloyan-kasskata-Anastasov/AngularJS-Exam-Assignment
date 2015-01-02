@@ -1,95 +1,93 @@
 <main class="row" ng-controller="Main">
-    <nav id="filters" class="col-md-2">
-        <div class="panel panel-primary" ng-cloak>
-            <div class="panel-heading">
-                <h3 class="panel-title">Categories</h3>
+        <nav id="filters" class="col-md-2">
+            <div class="panel panel-primary" ng-cloak>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Categories</h3>
+                </div>
+                <div class="panel-body" ng-controller="Categories">
+                    <ul>
+                        <li ng-repeat="category in categories">
+                            <a ng-href="#/" id="{{category.id}}"
+                               ng-click="filterByCategory(category.id)">{{category.name}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="panel-body" ng-controller="Categories">
-                <ul>
-                    <li ng-repeat="category in categories">
-                        <a ng-href="#/" id="{{category.id}}"
-                           ng-click="filterByCategory(category.id)">{{category.name}}</a>
-                    </li>
-                </ul>
+            <div class="panel panel-primary" ng-cloak>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Towns</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li ng-repeat="town in towns">
+                            <a href="#/" id="{{town.id}}" ng-click="filterByTown(town.id)">{{town.name}}</a>
+                            <span>{{town.id}}</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="panel panel-primary" ng-cloak>
-            <div class="panel-heading">
-                <h3 class="panel-title">Towns</h3>
-            </div>
-            <div class="panel-body">
-                <!--ng-controller="Towns"-->
-                <ul>
-                    <li ng-repeat="town in towns">
-                        <a href="#/" id="{{town.id}}" ng-click="filterByTown(town.id)">{{town.name}}</a>
-                        <span>{{town.id}}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <section class="col-md-8">
-        <div class="row">
-            <ul class="col-md-12">
-                <li ng-repeat="ad in data.ads | filter: {townId: townFilter}">
-                    <!--| filter:{categoryId: categoryFilter}-->
-                    <div class="row">
-                        <h3 class="col-sm-10"><strong>{{ad.title}}</strong></h3>
+        </nav>
+        <section class="col-md-8">
+            <div class="row">
+                <ul class="col-md-12">
+                    <li ng-repeat="ad in data.ads | filter: {townId: townFilter}">
+                        <!--| filter:{categoryId: categoryFilter}-->
+                        <div class="row">
+                            <h3 class="col-sm-10"><strong>{{ad.title}}</strong></h3>
                         <span class="col-sm-2">
                             {{ad.date | date: 'hh-MMM-yyyy'}}
                         </span>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img src="" ng-src="{{ad.imageDataUrl}}">
                         </div>
-                        <div class="col-md-8">
-                            <div class="modul">
-                                <p class="col-md-12">{{ad.text}}</p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="" ng-src="{{ad.imageDataUrl}}">
                             </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Seller:
+                            <div class="col-md-8">
+                                <div class="modul">
+                                    <p class="col-md-12">{{ad.text}}</p>
                                 </div>
-                                <div class="col-md-9">
-                                    {{ad.ownerName}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Seller:
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{ad.ownerName}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Email:
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Email:
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{ad.ownerEmail}}
+                                    </div>
                                 </div>
-                                <div class="col-md-9">
-                                    {{ad.ownerEmail}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Phone:
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{ad.ownerPhone}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Phone:
-                                </div>
-                                <div class="col-md-9">
-                                    {{ad.ownerPhone}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    City:
-                                </div>
-                                <div class="col-md-9" >
-                                    <!--ng-controller="Towns"-->
-                                    {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}
-                                    <span>   {{ad.townId}}</span>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        City:
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}
+                                        <span>   {{ad.townId}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <pagination style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
-                    ng-model="currentPage"
-                    ng-click="pageChanged()"></pagination>
-    </section>
+                    </li>
+                </ul>
+            </div>
+            <pagination style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
+                        ng-model="currentPage"
+                        ng-click="pageChanged()"></pagination>
+        </section>
     <nav class="col-md-2">
         <label>Display items in page:</label>
         <input class="col-md-10" type="number" ng-model="user.itemsPerPage" placeholder="posters displayed">

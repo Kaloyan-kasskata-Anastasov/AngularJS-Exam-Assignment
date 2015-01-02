@@ -3,6 +3,7 @@ var barOut;
 var barLogged;
 
 adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookieStore) {
+    $scope.statusFilter = '';
 
     $scope.goTo = function (path) {
         if (logged = true) {
@@ -65,9 +66,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
             $scope.userAds = data;
             $scope.currentPage = 1;
             $scope.totalItems = data.numItems;
-            console.log($scope.totalItems);
             $scope.numberOfPages = data.numPages;
-            console.log(data.numItems);
             $scope.itemsPerPage = 7;
             publicData.pageChangeTo(
                 $cookieStore.get('access_token'),
@@ -84,4 +83,8 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
         function (error, status, headers, config) {
             $scope.errorStack = error;
         });
+
+    $scope.filterByStatus = function(status){
+        $scope.statusFilter = status;
+    }
 })

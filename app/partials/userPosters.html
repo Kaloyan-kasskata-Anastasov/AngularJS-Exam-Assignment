@@ -1,36 +1,24 @@
 <main class="row">
-    <nav id="filters" class="col-md-2">
-        <div class="panel panel-primary" ng-cloak>
+    <nav class="col-md-2">
+        <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Categories</h3>
+                <h3 class="panel-title">By Status</h3>
             </div>
-            <div class="panel-body" ng-controller="Categories">
+            <div class="panel-body">
                 <ul>
-                    <li ng-repeat="category in categories">
-                        <a ng-href="#/" id="{{category.id}}"
-                           ng-click="filterByCategory(category.id)">{{category.name}}</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel panel-primary" ng-cloak>
-            <div class="panel-heading">
-                <h3 class="panel-title">Towns</h3>
-            </div>
-            <div class="panel-body" ng-controller="Towns">
-                <ul>
-                    <li ng-repeat="town in towns">
-                        <a href="#/" id="{{town.id}}" ng-click="filterByTown(town.id)">{{town.name}}</a>
-                        <span>{{town.id}}</span>
-                    </li>
+                    <li><a href ng-click="filterByStatus('')">All</a></li>
+                    <li><a href ng-click="filterByStatus('Published')">Published</a></li>
+                    <li><a href ng-click="filterByStatus('WaitingApproval')">Waiting Approval</a></li>
+                    <li><a href ng-click="filterByStatus('Inactive')">Inactive</a></li>
+                    <li><a href ng-click="filterByStatus('Rejected')">Rejected</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="col-md-8" ng-controller="SignedUser">
+    <section class="col-md-8">
         <div class="row">
             <ul class="col-md-12">
-                <li ng-repeat="userAd in userAds.ads | filter: {townId: townFilter}">
+                <li ng-repeat="userAd in userAds.ads | filter: {status: statusFilter}">
                     <!--| filter:{categoryId: categoryFilter}-->
                     <div class="row">
                         <h3 class="col-sm-10"><strong>{{userAd.title}}</strong></h3>
@@ -74,7 +62,7 @@
                                 <div class="col-md-2">
                                     Status:
                                 </div>
-                                <div class="col-md-9" ng-controller="Towns" ng-cloak>
+                                <div class="col-md-9">
                                     {{userAd.status}}
                                 </div>
                             </div>
