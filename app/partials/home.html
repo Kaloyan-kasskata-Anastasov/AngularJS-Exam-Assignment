@@ -17,7 +17,8 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Towns</h3>
             </div>
-            <div class="panel-body" ng-controller="Towns">
+            <div class="panel-body">
+                <!--ng-controller="Towns"-->
                 <ul>
                     <li ng-repeat="town in towns">
                         <a href="#/" id="{{town.id}}" ng-click="filterByTown(town.id)">{{town.name}}</a>
@@ -74,8 +75,10 @@
                                 <div class="col-md-1">
                                     City:
                                 </div>
-                                <div class="col-md-9" ng-controller="Towns" ng-cloak>
-                                    {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}<span>   {{ad.townId}}</span>
+                                <div class="col-md-9" >
+                                    <!--ng-controller="Towns"-->
+                                    {{towns[ad.townId]['name']?towns[ad.townId]['name']:"No City"}}
+                                    <span>   {{ad.townId}}</span>
                                 </div>
                             </div>
                         </div>

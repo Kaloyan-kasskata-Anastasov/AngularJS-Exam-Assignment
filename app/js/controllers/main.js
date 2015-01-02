@@ -9,6 +9,8 @@ adsApp.controller('Main', function ($scope, publicData,$location) {
             $scope.numberOfPages=data.numPages;
             $scope.itemsPerPage = 7;
             publicData.pageChangeTo(
+                null,
+                'ads',
                 $scope.currentPage,
                 $scope.itemsPerPage,
                 function (data, status, headers, config) {
@@ -33,6 +35,8 @@ adsApp.controller('Main', function ($scope, publicData,$location) {
 
     $scope.pageChanged = function () {
         publicData.pageChangeTo(
+            null,
+            'ads',
             $scope.currentPage,
             $scope.itemsPerPage,
             function (data, status, headers, config) {

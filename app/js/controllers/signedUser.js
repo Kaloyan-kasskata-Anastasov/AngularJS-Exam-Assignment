@@ -2,11 +2,11 @@ var logged = false;
 var barOut;
 var barLogged;
 
-adsApp.controller('SignedUser',function ($scope, AUTH_EVENTS, publicData, $location, $cookieStore, $rootScope) {
+adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookieStore) {
 
     $scope.goTo = function (path) {
         if (logged = true) {
-            $location.path('/' + path + '');
+            $location.path('/user/' + path + '');
         }
     }
 
@@ -23,11 +23,9 @@ adsApp.controller('SignedUser',function ($scope, AUTH_EVENTS, publicData, $locat
             $scope.user,
             function (data, status, headers, config) {
                 $scope.userData = data;
-                sessionStorage.setItem('access_token', $scope.userData.access_token);
                 $cookieStore.put('access_token', $scope.userData.access_token);
                 $cookieStore.put('username', $scope.userData.username);
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $location.path('/home');
+                $location.path('/user/home');
                 $scope.barOut = false;
                 $scope.barLoged = true;
                 $scope.onErrorLogin = false;
@@ -42,11 +40,48 @@ adsApp.controller('SignedUser',function ($scope, AUTH_EVENTS, publicData, $locat
     $scope.barOut = barOut;
     $scope.barLoged = barLogged;
 
-}).constant('AUTH_EVENTS', {
-    loginSuccess: 'auth-login-success',
-    loginFailed: 'auth-login-failed',
-    logoutSuccess: 'auth-logout-success',
-    sessionTimeout: 'auth-session-timeout',
-    notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
-});
+    $scope.pageSizeChanged = function (value) {
+        $scope.itemsPerPage = value;
+        $scope.pageChanged();
+    }
+
+    $scope.pageChanged = function () {
+        publicData.pageChangeTo(
+            $cookieStore.get('access_token'),
+            'user/ads',
+            $scope.currentPage,
+            $scope.itemsPerPage,
+            function (data, status, headers, config) {
+                $scope.userAds = data;
+            },
+            function (error, status, headers, config) {
+                $scope.errorStack = error;
+            });
+    }
+
+    publicData.getUserAds(
+        $cookieStore.get('access_token'),
+        function (data, status, headers, config) {
+            $scope.userAds = data;
+            $scope.currentPage = 1;
+            $scope.totalItems = data.numItems;
+            console.log($scope.totalItems);
+            $scope.numberOfPages = data.numPages;
+            console.log(data.numItems);
+            $scope.itemsPerPage = 7;
+            publicData.pageChangeTo(
+                $cookieStore.get('access_token'),
+                'user/ads',
+                $scope.currentPage,
+                $scope.itemsPerPage,
+                function (data, status, headers, config) {
+                    $scope.userAds = data;
+                },
+                function (error, status, headers, config) {
+                    $scope.errorStack = error;
+                });
+        },
+        function (error, status, headers, config) {
+            $scope.errorStack = error;
+        });
+})

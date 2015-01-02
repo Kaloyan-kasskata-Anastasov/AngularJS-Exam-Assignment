@@ -1,19 +1,21 @@
-adsApp.config(function ($routeProvider,AUTH_EVENTS) {
-    //$locationProvider.html5Mode(true);
-    //$locationProvider
+adsApp.config(function ($routeProvider) {
 
     $routeProvider
-        .when('/addPoster',
+        .when('/user/addPoster',
         {
             templateUrl: 'partials/addPoster.html'
         })
-        .when('/editProfile',
+        .when('/user/editProfile',
         {
             templateUrl: 'partials/editProfile.html'
         })
-        .when('/userPosters',
+        .when('/user/userPosters',
         {
             templateUrl: 'partials/userPosters.html'
+        })
+        .when('/user/home',
+        {
+            templateUrl: 'partials/home.html'
         })
         .when('/register',
         {

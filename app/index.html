@@ -5,7 +5,7 @@
     <link href="libs/bootstrap.css" rel="stylesheet">
     <link href="style/main.css" rel="stylesheet">
 </head>
-<body style="padding:20px; padding-top:50px;" data-ng-app="adsApp" ng-controller="Main">
+<body style="padding:20px; padding-top:50px;" data-ng-app="adsApp" >
 <header ng-controller="SignedUser">
     <div class="navbar navbar-default navbar-fixed-top">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -27,7 +27,7 @@
                         <input type="password" class="form-control col-md-2" ng-model="user.password"
                                placeholder="Password">
                     </form>
-                    <li><a ng-href="#/" ng-click="login(user)">Login</a></li>
+                    <li><a ng-href="#/user" ng-click="login(user)">Login</a></li>
                     <li><a ng-href="#/register">Register</a></li>
                 </ul>
             </div>
@@ -35,12 +35,12 @@
         <div ng-model="barLoged" ng-show="barLoged">
             <div id="loginNav" class="navbar-collapse navbar-responsive-collapse collapse out">
                 <div class="col-md-1"></div>
-                <ul class="nav navbar-nav" ng-controller="SignedUser">
+                <ul class="nav navbar-nav">
                     <li><a href ng-model="userPosters" ng-click="goTo('userPosters')">My Posters</a></li>
                     <li><a href ng-model="addPoster" ng-click="goTo('addPoster')">Publish new Poster</a></li>
                     <li><a href ng-model="editProfile" ng-click="editProfile('editProfile')">Edit Profile</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right col-md-1" ng-controller="SignedUser">
+                <ul class="nav navbar-nav navbar-right col-md-1">
                     <li><a href ng-click="logout()">Logout</a></li>
                 </ul>
             </div>

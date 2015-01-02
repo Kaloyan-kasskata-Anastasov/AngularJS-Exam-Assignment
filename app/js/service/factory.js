@@ -5,6 +5,7 @@ adsApp.factory('publicData', function publicData($http) {
             url: 'http://softuni-ads.azurewebsites.net/api/ads'
         })
             .success(function (data, status, headers, config) {
+                console.log("getAll");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -18,6 +19,7 @@ adsApp.factory('publicData', function publicData($http) {
             url: 'http://softuni-ads.azurewebsites.net/api/categories'
         })
             .success(function (data, status, headers, config) {
+                console.log("getCategory");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -32,6 +34,7 @@ adsApp.factory('publicData', function publicData($http) {
 
         })
             .success(function (data, status, headers, config) {
+                console.log("getTowns");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -39,12 +42,14 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
-    function pageChangeTo(page,limit,success,error){
+    function pageChangeTo(token,route,page,limit,success,error){
         $http({
             method: 'GET',
-            url: 'http://softuni-ads.azurewebsites.net/api/ads?startpage='+page+'&pagesize='+limit+''
-        })
+            url: 'http://softuni-ads.azurewebsites.net/api/'+route+'?startpage='+page+'&pagesize='+limit,
+            headers:{Authorization: 'Bearer '+token}
+    })
             .success(function (data, status, headers, config) {
+                console.log("Paging");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -59,6 +64,7 @@ adsApp.factory('publicData', function publicData($http) {
             data:JSON.stringify(data)
         })
             .success(function (data, status, headers, config) {
+                console.log("Register");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -73,6 +79,22 @@ adsApp.factory('publicData', function publicData($http) {
             data:JSON.stringify(data)
         })
             .success(function (data, status, headers, config) {
+                console.log("Login");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function getUserAds(token,success,error){
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/ads',
+            headers:{Authorization: 'Bearer '+token}
+        })
+            .success(function (data, status, headers, config) {
+                console.log("Get USER Data");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -86,6 +108,7 @@ adsApp.factory('publicData', function publicData($http) {
         getTowns: getTowns,
         pageChangeTo:pageChangeTo,
         register:register,
-        login:login
+        login:login,
+        getUserAds:getUserAds
     }
 });
