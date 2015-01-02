@@ -8,17 +8,24 @@
 <body style="padding:20px; padding-top:50px;" data-ng-app="adsApp" ng-controller="Main">
 <header ng-controller="SignedUser">
     <div class="navbar navbar-default navbar-fixed-top">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
         <div class="navbar-header">
             <a class="navbar-brand" href="#/home">SoftUni Ads</a>
         </div>
         <div ng-model="barOut" ng-show="barOut">
-            <div id="outNav" class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
+            <div id="outNav" class="navbar-collapse navbar-responsive-collapse collapse out" aria-expanded="false">
                 <ul class="nav navbar-nav navbar-right col-md-6">
                     <form class="navbar-form navbar-left">
-                        <input type="text" class="form-control col-md-2" ng-model="user.username" placeholder="Username">
+                        <input type="text" class="form-control col-md-2" ng-model="user.username"
+                               placeholder="Username">
                     </form>
                     <form class="navbar-form navbar-left">
-                        <input type="password" class="form-control col-md-2" ng-model="user.password" placeholder="Password">
+                        <input type="password" class="form-control col-md-2" ng-model="user.password"
+                               placeholder="Password">
                     </form>
                     <li><a ng-href="#/" ng-click="login(user)">Login</a></li>
                     <li><a ng-href="#/register">Register</a></li>
@@ -26,9 +33,15 @@
             </div>
         </div>
         <div ng-model="barLoged" ng-show="barLoged">
-            <div id="loginNav" class="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
+            <div id="loginNav" class="navbar-collapse navbar-responsive-collapse collapse out">
+                <div class="col-md-1"></div>
+                <ul class="nav navbar-nav" ng-controller="SignedUser">
+                    <li><a href ng-model="userPosters" ng-click="goTo('userPosters')">My Posters</a></li>
+                    <li><a href ng-model="addPoster" ng-click="goTo('addPoster')">Publish new Poster</a></li>
+                    <li><a href ng-model="editProfile" ng-click="editProfile('editProfile')">Edit Profile</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right col-md-1" ng-controller="SignedUser">
-                    <li><a ng-href="#/bye" ng-click="logout()">Logout</a></li>
+                    <li><a href ng-click="logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -49,15 +62,15 @@
 <script type="text/javascript" src="libs/ui-bootstrap-min.js"></script>
 
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="js/views/views.js"></script>
 <script type="text/javascript" src="js/service/factory.js"></script>
+<script type="text/javascript" src="js/service/onRun.js"></script>
 <script type="text/javascript" src="js/controllers/main.js"></script>
 <script type="text/javascript" src="js/controllers/categories.js"></script>
 <script type="text/javascript" src="js/controllers/towns.js"></script>
 <script type="text/javascript" src="js/controllers/signedUser.js"></script>
-<script type="text/javascript" src="js/views/views.js"></script>
 <script type="text/javascript" src="js/controllers/newUser.js"></script>
 <script type="text/javascript" src="js/controllers/bye.js"></script>
-
 
 
 </body>

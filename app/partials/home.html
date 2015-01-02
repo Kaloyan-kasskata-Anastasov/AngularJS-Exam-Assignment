@@ -1,5 +1,5 @@
 <main class="row" ng-controller="Main">
-    <nav class="col-md-2">
+    <nav id="filters" class="col-md-2">
         <div class="panel panel-primary" ng-cloak>
             <div class="panel-heading">
                 <h3 class="panel-title">Categories</h3>
@@ -27,7 +27,6 @@
             </div>
         </div>
     </nav>
-
     <section class="col-md-8">
         <div class="row">
             <ul class="col-md-12">
@@ -84,7 +83,8 @@
                 </li>
             </ul>
         </div>
-        <pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage"
+        <pagination style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
+                    ng-model="currentPage"
                     ng-click="pageChanged()"></pagination>
     </section>
     <nav class="col-md-2">

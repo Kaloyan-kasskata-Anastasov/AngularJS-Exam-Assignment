@@ -2,12 +2,19 @@ var logged = false;
 var barOut;
 var barLogged;
 
-adsApp.controller('SignedUser',function ($scope, publicData, $location, $cookieStore) {
+adsApp.controller('SignedUser',function ($scope, AUTH_EVENTS, publicData, $location, $cookieStore, $rootScope) {
+
+    $scope.goTo = function (path) {
+        if (logged = true) {
+            $location.path('/' + path + '');
+        }
+    }
 
     $scope.logout = function () {
         barOut = true;
         barLogged = false;
         $cookieStore.remove('access_token');
+        $cookieStore.remove('username');
         $location.path('/bye');
     }
 
@@ -18,7 +25,9 @@ adsApp.controller('SignedUser',function ($scope, publicData, $location, $cookieS
                 $scope.userData = data;
                 sessionStorage.setItem('access_token', $scope.userData.access_token);
                 $cookieStore.put('access_token', $scope.userData.access_token);
-                $location.path("/home");
+                $cookieStore.put('username', $scope.userData.username);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                $location.path('/home');
                 $scope.barOut = false;
                 $scope.barLoged = true;
                 $scope.onErrorLogin = false;
@@ -29,18 +38,15 @@ adsApp.controller('SignedUser',function ($scope, publicData, $location, $cookieS
                 $scope.onErrorLogin = true;
             });
     }
+
     $scope.barOut = barOut;
     $scope.barLoged = barLogged;
 
-}).run(function ($cookieStore) {
-    if ($cookieStore.get('access_token')) {
-        logged = true;
-        barOut = false;
-        barLogged = true;
-    }
-    else {
-        logged = false;
-        barOut = true;
-        barLogged = false;
-    }
+}).constant('AUTH_EVENTS', {
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
 });

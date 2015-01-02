@@ -9,13 +9,13 @@ angular.module('UserValidation', []).directive('validPasswordC', function () {
         }
     }
 });
-adsApp.controller('NewUser', function ($scope, publicData) {
+adsApp.controller('NewUser', function ($scope, publicData,$location) {
     $scope.register = function () {
         publicData.register(
             $scope.newUser,
             function (data, status, headers, config) {
                 $scope.userData = data;
-                console.log($scope.userData.access_token);
+                $location.path('/home');
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
@@ -27,12 +27,4 @@ adsApp.controller('NewUser', function ($scope, publicData) {
         }
     };
     $scope.reset();
-
-    $scope.addAlert = function() {
-        $scope.alerts.push({msg: 'Another alert!'});
-    };
-
-    $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
-    };
 });

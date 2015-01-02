@@ -1,7 +1,20 @@
-adsApp.config(function ($routeProvider) {
+adsApp.config(function ($routeProvider,AUTH_EVENTS) {
     //$locationProvider.html5Mode(true);
     //$locationProvider
+
     $routeProvider
+        .when('/addPoster',
+        {
+            templateUrl: 'partials/addPoster.html'
+        })
+        .when('/editProfile',
+        {
+            templateUrl: 'partials/editProfile.html'
+        })
+        .when('/userPosters',
+        {
+            templateUrl: 'partials/userPosters.html'
+        })
         .when('/register',
         {
             templateUrl: 'partials/register.html'
@@ -23,3 +36,4 @@ adsApp.config(function ($routeProvider) {
             redirectTo: '/home'
         });
 });
+//adPoster
