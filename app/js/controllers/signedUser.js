@@ -27,7 +27,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
                 $scope.userData = data;
                 $cookieStore.put('access_token', $scope.userData.access_token);
                 $cookieStore.put('username', $scope.userData.username);
-                $location.path('/user/home');
+                $location.path('/user/userPosters');
                 $scope.barOut = false;
                 $scope.barLoged = true;
                 $scope.onErrorLogin = false;
