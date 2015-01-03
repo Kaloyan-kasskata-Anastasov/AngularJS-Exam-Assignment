@@ -17,6 +17,18 @@ li {
 #wrapper div main nav div div.panel-body.ng-scope ul a {
     font-size: 18px;
 }
+#modalDelete > div > div > div:nth-child(2) > div.col-md-3 > img{
+    width: 200px;
+    height: auto;
+    min-height: 120px;
+    background-image: url('../images/No_image_available.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#modalDelete{
+    padding:5px;
+}
 
 #wrapper div main section div ul li div div img {
     width: 200px;
@@ -31,5 +43,6 @@ li {
 p {
     max-height: 100px;
     width: auto;
-    overflow-y: hidden;
+    overflow: hidden;
+    word-wrap: break-word;
 }

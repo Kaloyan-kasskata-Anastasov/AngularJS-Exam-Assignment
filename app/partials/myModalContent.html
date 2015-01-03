@@ -1,0 +1,53 @@
+<div id="modalDelete">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <span class="col-md-7" style="font-size: 26px;"><strong>{{ad.title}}</strong></span>
+                        <span class="col-md-3">
+                            {{ad.date | date: 'hh-MMM-yyyy'}}
+                        </span>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="" ng-src="{{userAd.imageDataUrl}}">
+                </div>
+                <div class="col-md-7">
+                    <div class="modul">
+                        <p class="col-md-12">{{ad.text}}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            Category:
+                        </div>
+                        <div class="col-md-9">
+                            {{ad.categoryName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Town:
+                        </div>
+                        <div class="col-md-9">
+                            {{ad.townName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Status:
+                        </div>
+                        <div class="col-md-9">
+                            {{ad.status}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav navbar-nav navbar-right col-md-6">
+                <span style="font-size: 30px; ">Delete this Poster?</span>
+                <button class="btn btn-primary" style="vertical-align: text-bottom;" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" style="vertical-align: text-bottom;" ng-click="cancel()">Cancel</button>
+            </ul>
+
+        </div>
+    </div>
+</div>
