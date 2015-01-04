@@ -46,3 +46,21 @@ p {
     overflow: hidden;
     word-wrap: break-word;
 }
+#modalEdit > div > div.col-md-3 > img{
+    width: 200px;
+    height: auto;
+    min-height: 120px;
+    background-image: url('../images/No_image_available.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;  width: 200px;
+}
+#modalEdit{
+    padding: 10px;
+}
+#modalEdit .row{
+    margin: 5px;
+}
+#alerts *{
+    display: none;
+}

@@ -1,3 +1,60 @@
-<article>
-    <h2>Add Poster</h2>
-</article>
+<div id="modalEdit">
+    <div class="row" style="height: 35px; overflow: hidden;" id="alerts">
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <img ng-src="" id="imgDisplay"/>
+
+            <div class="row">
+                <span></span>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <span class="col-md-2">Title</span>
+
+                <div class="col-md-9"><input style="width: 100%;" ng-model="newDataSelectedAd.title"/></div>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Text</span>
+                <textarea class="col-md-9" style="margin: 0 14px;" rows="3" class="col-md-12"
+                          ng-model="newDataSelectedAd.text"></textarea>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Image</span>
+                <input class="col-md-6" id="imgInp" accept="image/*" type="file" ng-model="img"
+                       onchange="angular.element(this).scope().attachFile()"/>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Category</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="category" ng-init="newDataSelectedAd.categoryId"
+                            ng-model="newDataSelectedAd.categoryId" ng-controller="Categories">
+                        <option ng-repeat="category in categories" value="{{category.id}}">
+                            {{category.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Town</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="town" ng-model="newDataSelectedAd.townId" ng-controller="Towns">
+                        <option ng-repeat="town in towns" value="{{town.id}}">
+                            {{town.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="nav navbar-nav navbar-right col-md-7">
+            <span style="font-size: 30px; ">Add Poster?</span>
+            <button class="btn btn-primary" ng-click="ok(newDataSelectedAd)">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </ul>
+    </div>
+</div>

@@ -2769,6 +2769,8 @@ select[multiple].form-group-lg .form-control {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+    padding-bottom: 5px;
+    padding-top: 1px;
 }
 .btn:focus,
 .btn:active:focus,
@@ -2852,8 +2854,7 @@ fieldset[disabled] .btn-default.active {
   color: #ffffff;
   background-color: #df691a;
   border-color: transparent;
-    padding-bottom: 1px;
-    padding-top: 1px;
+
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -4693,7 +4694,7 @@ a.thumbnail.active {
   border-radius: 0;
   height: 35px;
   line-height: 0;
-    text-align: center;
+  text-align: center;
 }
 .alert h4 {
   margin-top: 0;

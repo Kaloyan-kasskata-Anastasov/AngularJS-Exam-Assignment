@@ -41,14 +41,7 @@
                                     <div class="modul">
                                         <p class="col-md-12">{{userAd.text}}</p>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            Seller:
-                                        </div>
-                                        <div class="col-md-9">
-                                            ME
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             Category:
@@ -85,9 +78,9 @@
                                     <div class="panel-body">{{userAd.status}}</div>
                                 </li>
                                 <a class="btn btn-primary col-md-12" ng-disabled="{{userAd.status=='Inactive'}}" ng-model="userAd.adId" ng-click="deactivateAd(userAd)">Deactivate</a>
-                                <a class="btn btn-primary col-md-12" ng-click="editAd()">Edit</a>
+                                <a class="btn btn-primary col-md-12" ng-model="userAd.adId" ng-click="modalEdit(userAd)">Edit</a>
                                 <a class="btn btn-primary col-md-12" ng-disabled="{{userAd.status!='Inactive'}}" ng-model="userAd.adId" ng-click="publishAd(userAd)">Publish Again</a>
-                                <a class="btn btn-primary col-md-12" ng-model="userAd.adId" ng-click="modalUpdate(userAd)">Delete</a>
+                                <a class="btn btn-primary col-md-12" ng-model="userAd.adId" ng-click="modalDelete(userAd)">Delete</a>
                                 <!--ng-click="deleteAd(userAd)"-->
                             </ul>
                         </div>

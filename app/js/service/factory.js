@@ -5,7 +5,7 @@ adsApp.factory('publicData', function publicData($http) {
             url: 'http://softuni-ads.azurewebsites.net/api/ads'
         })
             .success(function (data, status, headers, config) {
-                console.log("getAll");
+//                console.log("getAll");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -19,7 +19,7 @@ adsApp.factory('publicData', function publicData($http) {
             url: 'http://softuni-ads.azurewebsites.net/api/categories'
         })
             .success(function (data, status, headers, config) {
-                console.log("getCategory");
+//                console.log("getCategory");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -34,7 +34,7 @@ adsApp.factory('publicData', function publicData($http) {
 
         })
             .success(function (data, status, headers, config) {
-                console.log("getTowns");
+//                console.log("getTowns");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -49,7 +49,7 @@ adsApp.factory('publicData', function publicData($http) {
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
-                console.log("Paging");
+//                console.log("Paging");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -64,7 +64,7 @@ adsApp.factory('publicData', function publicData($http) {
             data: JSON.stringify(data)
         })
             .success(function (data, status, headers, config) {
-                console.log("Register");
+//                console.log("Register");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -79,7 +79,7 @@ adsApp.factory('publicData', function publicData($http) {
             data: JSON.stringify(data)
         })
             .success(function (data, status, headers, config) {
-                console.log("Login");
+//                console.log("Login");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -94,7 +94,7 @@ adsApp.factory('publicData', function publicData($http) {
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
-                console.log("Get USER Data");
+//                console.log("Get USER Data");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -109,7 +109,7 @@ adsApp.factory('publicData', function publicData($http) {
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
-                console.log("Deactivate Ad");
+//                console.log("Deactivate Ad");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -139,7 +139,39 @@ adsApp.factory('publicData', function publicData($http) {
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
-                console.log("Delete Ad");
+//                console.log("Delete Ad");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function editUserAd(token, id, data, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/ads/' + id,
+            headers: {Authorization: 'Bearer ' + token},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("Edit Ad");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function addAd(token, data, success, error) {
+        $http({
+            method: 'POST',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/ads',
+            headers: {Authorization: 'Bearer ' + token},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("addAd");
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -157,6 +189,8 @@ adsApp.factory('publicData', function publicData($http) {
         getUserAds: getUserAds,
         deactivateUserAd: deactivateUserAd,
         publishUserAd: publishUserAd,
-        deleteUserAd: deleteUserAd
+        deleteUserAd: deleteUserAd,
+        editUserAd: editUserAd,
+        addAd: addAd
     }
 });

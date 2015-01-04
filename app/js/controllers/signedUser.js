@@ -2,7 +2,7 @@ var logged = false;
 var barOut;
 var barLogged;
 
-adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookieStore,$modal,$log) {
+adsApp.controller('SignedUser', function ($scope, publicData,$rootScope, $location, $cookieStore, $modal) {
     $scope.statusFilter = '';
     $scope.username = $cookieStore.get('username');
 
@@ -56,7 +56,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
             $scope.currentPage,
             $scope.itemsPerPage,
             function (data, status, headers, config) {
-                $scope.userAds = data;
+                $rootScope.userAds = data;
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
@@ -64,11 +64,11 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
         );
     }
 
-    function getUserAds(){
+    function getUserAds() {
         publicData.getUserAds(
             $cookieStore.get('access_token'),
             function (data, status, headers, config) {
-                $scope.userAds = data;
+                $rootScope.userAds = data;
                 $scope.currentPage = 1;
                 $scope.totalItems = data.numItems;
                 $scope.numberOfPages = data.numPages;
@@ -79,7 +79,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
                     $scope.currentPage,
                     $scope.itemsPerPage,
                     function (data, status, headers, config) {
-                        $scope.userAds = data;
+                        $rootScope.userAds = data;
                     },
                     function (error, status, headers, config) {
                         $scope.errorStack = error;
@@ -110,10 +110,10 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
         );
     }
 
-    $scope.publishAd = function (adId) {
+    $scope.publishAd = function (data) {
         publicData.publishUserAd(
             $cookieStore.get('access_token'),
-            adId.id,
+            data.id,
             function (data, status, headers, config) {
                 getUserAds();
             },
@@ -123,10 +123,10 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
         );
     }
 
-    function deleteAd(adId) {
+    function deleteAd(data) {
         publicData.deleteUserAd(
             $cookieStore.get('access_token'),
-            adId.id,
+            data.id,
             function (data, status, headers, config) {
                 getUserAds();
             },
@@ -135,14 +135,15 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
             }
         );
     }
-    $scope.deleteAd = function(adId){
-        deleteAd(adId);
+
+    $scope.deleteAd = function (data) {
+        deleteAd(data);
+        getUserAds();
     }
 
-    $scope.modalUpdate = function (selectedAd) {
-
+    $scope.modalDelete = function (selectedAd) {
         var modalInstance = $modal.open({
-            templateUrl: 'partials/myModalContent.html',
+            templateUrl: 'partials/modalDelete.html',
             controller: function ($scope, $modalInstance, ad) {
                 $scope.ad = ad;
 
@@ -162,12 +163,40 @@ adsApp.controller('SignedUser', function ($scope, publicData, $location, $cookie
                 }
             }
         });
+    };
 
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
+    function editAd(data) {
+        publicData.editUserAd(
+            $cookieStore.get('access_token'),
+            data.id,
+            data,
+            function (data, status, headers, config) {
+                publicData.getUserAds();
+            },
+            function (error, status, headers, config) {
+                $scope.errorStack = error;
+            }
+        );
+    }
+
+    $scope.editAd = function (data) {
+        editAd(data);
+        getUserAds();
+    }
+    $scope.modalEdit = function (selectedAd) {
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/modalEdit.html',
+            controller: 'EditModule',
+            size: 'lg',
+            resolve: {
+                ad: function () {
+                    return selectedAd;
+                }
+            }
         });
     };
 
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
 })

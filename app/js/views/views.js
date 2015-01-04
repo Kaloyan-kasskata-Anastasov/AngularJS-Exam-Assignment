@@ -3,7 +3,8 @@ adsApp.config(function ($routeProvider) {
     $routeProvider
         .when('/user/addPoster',
         {
-            templateUrl: 'partials/addPoster.html'
+            templateUrl: 'partials/addPoster.html',
+            controller:'AddPoster'
         })
         .when('/user/editProfile',
         {
