@@ -1,3 +1,99 @@
-<article>
-    <h2>Edit Profile</h2>
-</article>
+<form class="form-horizontal col-sm-10 text-center" name="passForm" novalidate>
+    <div class="row" style="height: 35px; overflow: hidden;" id="errors">
+        <!--OldPass-->
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="passForm.oldPassword.$error.required || passForm.oldPassword.$pattern.required">Old Password is required.</alert>
+        <!--Password-->
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="passForm.password.$error.required || passForm.password.$pattern.required">New Password is required.</alert>
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="!passForm.password.$error.required && (passForm.password.$error.minlength || passForm.password.$error.maxlength) && passForm.password.$dirty">New Passwords must be between 5 and 20 characters.</alert>
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="!passForm.password.$error.required && !passForm.password.$error.minlength && !passForm.password.$error.maxlength && passForm.password.$error.pattern && passForm.password.$dirty">Must contain at least one lower &amp; uppercase letter, one special character & one digit.</alert>
+        <!--Password-Confirm-->
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="passForm.passwordRepeat.$error.required || !passForm.passwordRepeat.$dirty ">Please confirm new password.</alert>
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="!passForm.passwordRepeat.$error.required && passForm.passwordRepeat.$error.noMatch || newPassword.confirmPassword != newPassword.newPassword">Passwords do not match.</alert>
+        <!--Name-->
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="infoForm.fullName.$error.required">Name is required</alert>
+        <!--Email-->
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="infoForm.email.$error.required">Email is required</alert>
+        <alert class="alert ng-isolate-scope alert-danger alert-dismissable" ng-show="!infoForm.email.$error.required && infoForm.email.$error.email && infoForm.email.$dirty">Invalid email</alert>
+    </div>
+    <legend class="col-md-10">Edit Your Profile</legend>
+    <div class="col-md-2"></div>
+    <fieldset class="col-md-3">
+        <h3>Password</h3>
+        <div class="form-group">
+            <label for="oldPassword" class="col-md-3 control-label">Old Password</label>
+
+            <div class="col-md-9">
+                <input type="password" ng-change="" class="form-control" name="oldPassword" id="oldPassword"
+                       ng-model="newPassword.oldPassword"
+                       required placeholder="Old Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="register-password" class="col-md-3 control-label">Password</label>
+
+            <div class="col-md-9">
+                <input type="password" ng-change="" class="form-control" name="password" id="register-password" ng-model="newPassword.newPassword"
+                       ng-pattern="/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]))/" ng-minlength="5" ng-maxlength="20" required placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordRepeat" class="col-md-3 control-label">Confirm Password</label>
+
+            <div class="col-md-9">
+                <input type="password" class="form-control" name="passwordRepeat" id="passwordRepeat" ng-model="newPassword.confirmPassword" placeholder="Password confirm" required>
+            </div>
+        </div>
+        <div class="row">
+            <input type="button" class="btn btn-default" ng-click="reset()" value="Reset"/>
+            <button type="submit" ng-click="editUserPassword(newPassword)" ng-disabled="!passForm.$valid" class="btn btn-primary">
+                Submit
+            </button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+    </fieldset>
+
+    <fieldset name="infoForm" class="col-md-3">
+        <h3>Information</h3>
+        <div class="form-group">
+            <label for="inputName" class="col-md-2 control-label">Name</label>
+
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="fullName" id="inputName" ng-model="newUser.name" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class="col-md-2 control-label">Email</label>
+
+            <div class="col-lg-10">
+                <input type="email" class="form-control" name="email" id="inputEmail" ng-model="newUser.email" placeholder="Email" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPhone" class="col-md-2 control-label">Phone</label>
+
+            <div class="col-lg-10">
+                <input type="tel" class="form-control" name="phone" id="inputPhone" ng-model="newUser.phoneNumber" placeholder="Phone" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="select" class="col-md-2 control-label">Town</label>
+
+            <div class="col-md-10">
+                <select class="form-control" id="select" ng-model="newUser.townId" ng-controller="Towns">
+                    <option ng-repeat="town in towns" ng-selected="town.name == ad.townName"
+                            ng-init="newUser.townId = town.name == ad.townName?town.id:newUser.townId"
+                            value="{{town.id}}">
+                        {{town.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <button type="submit" ng-click="editUserInfo(newUser)" class="btn btn-primary">
+                Submit
+            </button>
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        </div>
+    </fieldset>
+</form>

@@ -2,7 +2,7 @@ var logged = false;
 var barOut;
 var barLogged;
 
-adsApp.controller('SignedUser', function ($scope, publicData,$rootScope, $location, $cookieStore, $modal) {
+adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $location, $cookieStore, $modal) {
     $scope.statusFilter = '';
     $scope.username = $cookieStore.get('username');
 
@@ -57,6 +57,7 @@ adsApp.controller('SignedUser', function ($scope, publicData,$rootScope, $locati
             $scope.itemsPerPage,
             function (data, status, headers, config) {
                 $rootScope.userAds = data;
+                window.scrollTo(0, 0);
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
@@ -196,7 +197,7 @@ adsApp.controller('SignedUser', function ($scope, publicData,$rootScope, $locati
         });
     };
 
-    $("#imgInp").change(function(){
+    $("#imgInp").change(function () {
         readURL(this);
     });
 })

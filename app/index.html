@@ -5,7 +5,7 @@
     <link href="libs/bootstrap.css" rel="stylesheet">
     <link href="style/main.css" rel="stylesheet">
 </head>
-<body style="padding:55px 15px 5px 15px; " data-ng-app="adsApp" ng-controller="SignedUser">
+<body style="padding:53px 15px 5px 15px; " data-ng-app="adsApp" ng-controller="SignedUser">
 <header >
     <div class="navbar navbar-default navbar-fixed-top">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -54,9 +54,12 @@
             <alert class="alert-danger" ng-show="onErrorLogin">Access denied.Try again</alert>
         </div>
     </div>
+    <div class="row" style="height: 35px; overflow: hidden;" id="alerts">
+
+    </div>
 </header>
 <section id="wrapper">
-    <div ng-view></div>
+    <div ng-view autoscroll="true"></div>
 </section>
 
 <script type="text/javascript" src="libs/angular.js"></script>
@@ -79,6 +82,7 @@
 <script type="text/javascript" src="js/controllers/bye.js"></script>
 <script type="text/javascript" src="js/controllers/editModule.js"></script>
 <script type="text/javascript" src="js/controllers/addPoster.js"></script>
+<script type="text/javascript" src="js/controllers/editProfile.js"></script>
 
 </body>
 </html>

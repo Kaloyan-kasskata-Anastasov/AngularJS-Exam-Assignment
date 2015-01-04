@@ -41,6 +41,7 @@ adsApp.controller('Main', function ($scope, publicData,$location) {
             $scope.itemsPerPage,
             function (data, status, headers, config) {
                 $scope.data = data;
+                window.scrollTo(0, 0);
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;

@@ -1,4 +1,4 @@
-adsApp.controller('AddPoster', function ($scope, staticFuncs) {
+adsApp.controller('AddPoster', function ($scope, staticFuncs,$location) {
     $scope.newDataSelectedAd = {};
 
     $scope.attachFile = function () {
@@ -26,6 +26,6 @@ adsApp.controller('AddPoster', function ($scope, staticFuncs) {
         staticFuncs.alertFade('success','TODO: ITS not a REAL place For That INFO');
     };
     $scope.cancel = function(){
-        staticFuncs.alertFade('warning','Dump');
+        $location.path('/user/userPosters');
     };
 });

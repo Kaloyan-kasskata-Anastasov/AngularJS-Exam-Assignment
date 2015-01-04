@@ -179,6 +179,53 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
+    function getProfile(token, success, error) {
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/Profile',
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("Get USER Profile");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function editUserProfile(token, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/profile',
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("Get USER Profile");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function changeUserPassword(token,data, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/user/changepassword',
+            headers: {Authorization: 'Bearer ' + token},
+            data: JSON.stringify(data)
+
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("Get USER Profile");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
     return{
         getAll: getAll,
         getCategories: getCategories,
@@ -191,6 +238,9 @@ adsApp.factory('publicData', function publicData($http) {
         publishUserAd: publishUserAd,
         deleteUserAd: deleteUserAd,
         editUserAd: editUserAd,
-        addAd: addAd
+        addAd: addAd,
+        getProfile:getProfile,
+        editUserProfile:editUserProfile,
+        changeUserPassword:changeUserPassword
     }
 });

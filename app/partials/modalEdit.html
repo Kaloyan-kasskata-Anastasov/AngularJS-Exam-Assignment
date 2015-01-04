@@ -20,11 +20,7 @@
             </div>
             <div class="row">
                 <span class="col-md-2">Image</span>
-                <!--<input type="file" ng-model="img" />-->
-                <!--<img ng-src="{{img}}"/>-->
                 <input class="col-md-6" id="imgInp" accept="image/*" type="file" ng-model="img" onchange="angular.element(this).scope().attachFile()"/>
-                <!--onchange="angular.element(this).scope().attachFile(this.file)"-->
-                <!--<input class="col-md-7" type="file" ng-model="newDataSelectedAd.image" style="color:white;"/>-->
                 <button class="btn btn-primary col-md-3" ng-click="deleteImage()">Delete Image
                 </button>
             </div>

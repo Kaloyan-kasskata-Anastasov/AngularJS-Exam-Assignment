@@ -8,7 +8,8 @@ adsApp.config(function ($routeProvider) {
         })
         .when('/user/editProfile',
         {
-            templateUrl: 'partials/editProfile.html'
+            templateUrl: 'partials/editProfile.html',
+            controller:'EditProfile'
         })
         .when('/user/userPosters',
         {

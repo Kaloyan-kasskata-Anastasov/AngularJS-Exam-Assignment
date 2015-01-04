@@ -27,4 +27,8 @@ adsApp.controller('NewUser', function ($scope, publicData,$location) {
         }
     };
     $scope.reset();
+
+    $scope.cancel = function () {
+        $location.path('/user/home');
+    };
 });
