@@ -23,7 +23,6 @@ adsApp.controller('AddPoster', function ($scope, staticFuncs,$location) {
         staticFuncs.addAd($scope.newDataSelectedAd);
         $scope.newDataSelectedAd = {};
         $('#imgDisplay').attr('src', '');
-        staticFuncs.alertFade('success','TODO: ITS not a REAL place For That INFO');
     };
     $scope.cancel = function(){
         $location.path('/user/userPosters');

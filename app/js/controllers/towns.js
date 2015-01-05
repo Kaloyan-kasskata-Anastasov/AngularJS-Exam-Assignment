@@ -1,9 +1,9 @@
-adsApp.controller('Towns', function ($scope, publicData) {
+adsApp.controller('Towns', function ($scope, publicData,staticFuncs) {
     publicData.getTowns(
         function (data, status, headers, config) {
             $scope.towns = data;
         },
         function (error, status, headers, config) {
-            $scope.errorStack = error;
+            staticFuncs.alertFade('danger', 'Load towns failed. Please try again later.');
         });
 });

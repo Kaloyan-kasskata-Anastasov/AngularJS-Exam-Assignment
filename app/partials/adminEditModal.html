@@ -1,0 +1,73 @@
+<div id="modalEdit">
+    <div class="row">
+        <div class="col-md-3">
+            <img ng-src="{{ad.imageDataUrl}}" id="imgDisplay" />
+
+            <div class="row">
+                <span>{{ad.date | date: 'dd-MMM-yyyy'}}</span>
+            </div>
+        </div>
+        <div name="editForm" class="col-md-8">
+            <div class="row">
+                <span class="col-md-2">Title</span>
+
+                <div class="col-md-9"><input required style="width: 100%;" placeholder="{{ad.title}}" ng-model="newDataSelectedAd.title"/></div>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Text</span>
+                <textarea required class="col-md-9" style="margin: 0 14px;" placeholder="{{ad.text}}" rows="3" class="col-md-12"
+                          ng-model="newDataSelectedAd.text"></textarea>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Image</span>
+                <input class="col-md-6" id="imgInp" accept="image/*" type="file" ng-model="img" onchange="angular.element(this).scope().attachFile()"/>
+                <button class="btn btn-primary col-md-3" ng-click="deleteImage()">Delete Image
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Category</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="category" ng-init="newDataSelectedAd.categoryId" ng-model="newDataSelectedAd.categoryId" ng-controller="Categories">
+                        <option ng-repeat="category in categories" ng-selected="category.name == ad.categoryName"  ng-init="newDataSelectedAd.categoryId = category.name == ad.categoryName?category.id:newDataSelectedAd.categoryId" value="{{category.id}}">
+                            {{category.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Town</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="town" ng-model="newDataSelectedAd.townId" ng-controller="Towns">
+                        <option ng-repeat="town in towns" ng-selected="town.name == ad.townName" ng-init="newDataSelectedAd.townId = town.name == ad.townName?town.id:newDataSelectedAd.townId" value="{{town.id}}">
+                            {{town.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Status</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="status" ng-model="newDataSelectedAd.status" ng-controller="Towns">
+                        <option required ng-repeat="status in advertisementStatus" ng-selected="status.status == ad.status" ng-init="newDataSelectedAd.status = status.status == ad.status?status.status:newDataSelectedAd.status" value="{{status.status}}">
+                            {{status.status}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Date</div>
+                <div class="col-md-9">
+                    <input type="date" ng-model="newDataSelectedAd.data" ng-selected="ad.date" required/>{{ad.date}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <ul class="nav navbar-nav navbar-right col-md-7">
+            <span style="font-size: 30px; ">Edit this Poster?</span>
+            <button class="btn btn-primary" ng-click="adminOk(newDataSelectedAd)">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </ul>
+    </div>
+</div>

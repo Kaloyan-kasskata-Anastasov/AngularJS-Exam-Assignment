@@ -31,9 +31,25 @@ adsApp.config(function ($routeProvider) {
         {
             templateUrl: 'partials/home.html'
         })
-        .when('/bye',
+        .when('/admin/allPosters',
         {
-            templateUrl: 'partials/bye.html'
+            templateUrl: 'partials/allPosters.html',
+            controller:'Admin'
+        })
+        .when('/admin/users',
+        {
+            templateUrl: 'partials/users.html',
+            controller:'Admin'
+        })
+        .when('/admin/categories',
+        {
+            templateUrl: 'partials/categories.html',
+            controller:'Admin'
+        })
+        .when('/admin/towns',
+        {
+            templateUrl: 'partials/towns.html',
+            controller:'Admin'
         })
         .otherwise(
         {

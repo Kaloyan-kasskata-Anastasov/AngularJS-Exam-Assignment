@@ -9,16 +9,17 @@ angular.module('UserValidation', []).directive('validPasswordC', function () {
         }
     }
 });
-adsApp.controller('NewUser', function ($scope, publicData,$location) {
+adsApp.controller('NewUser', function ($scope, publicData,$location,staticFuncs) {
     $scope.register = function () {
         publicData.register(
             $scope.newUser,
             function (data, status, headers, config) {
                 $scope.userData = data;
                 $location.path('/home');
+                staticFuncs.alertFade('success', 'Register successfully. Now you can log in.');
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Register failed. Please try again later.');
             });
     }
     $scope.reset = function() {

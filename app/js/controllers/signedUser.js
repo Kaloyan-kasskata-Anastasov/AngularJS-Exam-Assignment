@@ -1,23 +1,32 @@
 var logged = false;
-var barOut;
-var barLogged;
+var isAdmin = false;
+var adminNav = false;
 
-adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $location, $cookieStore, $modal) {
+adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $location, $cookieStore, staticFuncs, $modal) {
     $scope.statusFilter = '';
     $scope.username = $cookieStore.get('username');
+
+    $scope.barOut = true;
+    $scope.barLoged = false;
+    $scope.adminNav = false;
 
     $scope.goTo = function (path) {
         if (logged = true) {
             $location.path('/user/' + path + '');
         }
+        if (logged = true && isAdmin == true) {
+            $location.path('/admin/' + path + '');
+        }
     }
 
     $scope.logout = function () {
-        barOut = true;
-        barLogged = false;
+        $scope.barOut = true;
+        $scope.barLoged = false;
+        $scope.adminNav = false;
         $cookieStore.remove('access_token');
         $cookieStore.remove('username');
-        $location.path('/bye');
+        $rootScope.userAds = {};
+        $location.path('/home');
     }
 
     $scope.login = function () {
@@ -32,15 +41,24 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                 $scope.barLoged = true;
                 $scope.onErrorLogin = false;
                 logged = true;
+                if ($cookieStore.get('username') === 'admin') {
+                    isAdmin = true;
+                    $scope.barLoged = false;
+                    $scope.adminNav = true;
+                    $scope.user.username = '';
+                    $location.path('/user/allPosters');
+                }
                 $scope.username = $cookieStore.get('username');
+                staticFuncs.alertFade('success', 'Login success');
+                $scope.user.password = '';
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
                 $scope.onErrorLogin = true;
+                staticFuncs.alertFade('danger', 'Login failed. Please try again.');
             }
         );
     }
-
+    $scope.adminNav = adminNav;
     $scope.barOut = barOut;
     $scope.barLoged = barLogged;
 
@@ -55,12 +73,14 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
             'user/ads',
             $scope.currentPage,
             $scope.itemsPerPage,
+            null,
+            null,
             function (data, status, headers, config) {
                 $rootScope.userAds = data;
                 window.scrollTo(0, 0);
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Page change failed. Please try again later.');
             }
         );
     }
@@ -79,17 +99,20 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                     'user/ads',
                     $scope.currentPage,
                     $scope.itemsPerPage,
+                    null,
+                    null,
                     function (data, status, headers, config) {
                         $rootScope.userAds = data;
                     },
                     function (error, status, headers, config) {
-                        $scope.errorStack = error;
+                        staticFuncs.alertFade('danger', 'Page change failed. Please try again later.');
                     }
                 );
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
-            });
+            }
+        );
     }
 
     getUserAds();
@@ -104,9 +127,13 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
             adId.id,
             function (data, status, headers, config) {
                 getUserAds();
+                staticFuncs.alertFade('success', data.message);
+
             },
             function (error, status, headers, config) {
                 $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Deactivation on Poster failed. Please try again later.');
+
             }
         );
     }
@@ -116,10 +143,11 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
             $cookieStore.get('access_token'),
             data.id,
             function (data, status, headers, config) {
+                staticFuncs.alertFade('success', data.message);
                 getUserAds();
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Publish this Poster failed. Please try again later.');
             }
         );
     }
@@ -132,7 +160,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                 getUserAds();
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Deletion operation failed. Please try again later.');
             }
         );
     }
@@ -172,10 +200,10 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
             data.id,
             data,
             function (data, status, headers, config) {
-                publicData.getUserAds();
+                staticFuncs.alertFade('info', 'Wrong');
             },
             function (error, status, headers, config) {
-                $scope.errorStack = error;
+                staticFuncs.alertFade('danger', 'Edit on Poster failed. Please try again later.');
             }
         );
     }

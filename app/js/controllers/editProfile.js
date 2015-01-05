@@ -9,7 +9,7 @@ adsApp.controller('EditProfile', function ($scope, $cookieStore, staticFuncs, $l
             $scope.newUser = $scope.profileInfo;
         },
         function (error, status, headers, config) {
-            $scope.errorStack = error;
+            staticFuncs.alertFade('danger', 'Load Profile request failed. Please try again later.');
         }
     );
 
@@ -21,7 +21,7 @@ adsApp.controller('EditProfile', function ($scope, $cookieStore, staticFuncs, $l
                 staticFuncs.alertFade('info', data.message);
             },
             function (error, status, headers, config) {
-                staticFuncs.alertFade('danger', 'Failed to edit your password.');
+                staticFuncs.alertFade('danger', 'Changing password request failed. Please try again later.');
             }
         )
     };

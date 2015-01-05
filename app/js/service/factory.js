@@ -42,10 +42,18 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
-    function pageChangeTo(token, route, page, limit, success, error) {
+    function pageChangeTo(token, route, page, limit, category, town, success, error) {
+        var categoryIdRequest = '';
+        var townIdRequest = '';
+        if (category) {
+            categoryIdRequest = '&CategoryId=' + Number(category);
+        }
+        if (town) {
+            townIdRequest = '&TownId=' + Number(town);
+        }
         $http({
             method: 'GET',
-            url: 'http://softuni-ads.azurewebsites.net/api/' + route + '?startpage=' + page + '&pagesize=' + limit,
+            url: 'http://softuni-ads.azurewebsites.net/api/' + route + '?startpage=' + page + '&pagesize=' + limit + categoryIdRequest + townIdRequest,
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
@@ -54,7 +62,8 @@ adsApp.factory('publicData', function publicData($http) {
             })
             .error(function (data, status, headers, config) {
                 error(data, status, headers(), config);
-            });
+            }
+        );
     }
 
     function register(data, success, error) {
@@ -209,7 +218,7 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
-    function changeUserPassword(token,data, success, error) {
+    function changeUserPassword(token, data, success, error) {
         $http({
             method: 'PUT',
             url: 'http://softuni-ads.azurewebsites.net/api/user/changepassword',
@@ -219,6 +228,109 @@ adsApp.factory('publicData', function publicData($http) {
         })
             .success(function (data, status, headers, config) {
 //                console.log("Get USER Profile");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminGetAll(token, success, error) {
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/ads',
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminPageChangeTo(token, route, page, limit, category, town, status, sortBy, success, error) {
+        var sortByRequest = '';
+        var statusRequest = '';
+        var categoryIdRequest = '';
+        var townIdRequest = '';
+        if (sortBy) {
+            sortByRequest = 'SortBy=' + sortBy;
+        }
+        if (status) {
+            statusRequest = '&Status=' + status;
+        }
+        if (category) {
+            categoryIdRequest = '&CategoryId=' + Number(category);
+        }
+        if (town) {
+            townIdRequest = '&TownId=' + Number(town);
+        }
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/' + route + '?startpage=' + page + '&pagesize=' + limit + categoryIdRequest + townIdRequest + statusRequest + sortByRequest,
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+//                console.log("Paging");
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            }
+        );
+    }
+
+    function adminApproveAd(token, id, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/Ads/Approve/' + id,
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminRejectAd(token, id, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/Ads/Reject/' + id,
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminEditAd(token, id, data, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/ads/' + id,
+            headers: {Authorization: 'Bearer ' + token},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminDeleteAd(token, id, success, error) {
+        $http({
+            method: 'delete',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/ads/' + id,
+            headers: {Authorization: 'Bearer ' + token}
+        })
+            .success(function (data, status, headers, config) {
                 success(data, status, headers(), config);
             })
             .error(function (data, status, headers, config) {
@@ -239,8 +351,14 @@ adsApp.factory('publicData', function publicData($http) {
         deleteUserAd: deleteUserAd,
         editUserAd: editUserAd,
         addAd: addAd,
-        getProfile:getProfile,
-        editUserProfile:editUserProfile,
-        changeUserPassword:changeUserPassword
+        getProfile: getProfile,
+        editUserProfile: editUserProfile,
+        changeUserPassword: changeUserPassword,
+        adminPageChangeTo: adminPageChangeTo,
+        adminGetAll: adminGetAll,
+        adminApproveAd: adminApproveAd,
+        adminRejectAd: adminRejectAd,
+        adminEditAd: adminEditAd,
+        adminDeleteAd: adminDeleteAd
     }
 });
