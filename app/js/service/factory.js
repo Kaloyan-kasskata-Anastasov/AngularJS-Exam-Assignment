@@ -1,4 +1,4 @@
-adsApp.factory('publicData', function publicData($http) {
+adsApp.factory('publicData', function publicData($http, $cookieStore) {
     function getAll(success, error) {
         $http({
             method: 'GET',
@@ -249,7 +249,7 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
-    function adminPageChangeTo(token, route, page, limit, category, town, status, sortBy, success, error) {
+    function adminPageChangeTo(route, page, limit, category, town, status, sortBy, success, error) {
         var sortByRequest = '';
         var statusRequest = '';
         var categoryIdRequest = '';
@@ -269,7 +269,7 @@ adsApp.factory('publicData', function publicData($http) {
         $http({
             method: 'GET',
             url: 'http://softuni-ads.azurewebsites.net/api/' + route + '?startpage=' + page + '&pagesize=' + limit + categoryIdRequest + townIdRequest + statusRequest + sortByRequest,
-            headers: {Authorization: 'Bearer ' + token}
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')}
         })
             .success(function (data, status, headers, config) {
 //                console.log("Paging");
@@ -338,6 +338,129 @@ adsApp.factory('publicData', function publicData($http) {
             });
     }
 
+    function adminGetUsers(success, error) {
+        $http({
+            method: 'GET',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/users',
+            // + '?startpage=' + page + '&pagesize=' + limit + sortByRequest
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminEditUserMain(data, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/User/' + data.username,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminEditUserPass(data, success, error) {
+        $http({
+            method: 'PUT',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/SetPassword',
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminDeleteUser(data, success, error) {
+        $http({
+            method: 'delete',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/user/' + data.username,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')}
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminEditCategory(data,method, success, error) {
+        var id = data.id ? data.id : '';
+        $http({
+            method: method,
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/categories/' +id,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminDeleteCategory(data, success, error) {
+        $http({
+            method: 'DELETE',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/Categories/' + data.id,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminEditTown(data,method, success, error) {
+        var id = data.id ? data.id : '';
+        $http({
+            method: method,
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/towns/' +id,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+    function adminDeleteTown(data, success, error) {
+        $http({
+            method: 'DELETE',
+            url: 'http://softuni-ads.azurewebsites.net/api/admin/Towns/' + data.id,
+            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')},
+            data: JSON.stringify(data)
+        })
+            .success(function (data, status, headers, config) {
+                success(data, status, headers(), config);
+            })
+            .error(function (data, status, headers, config) {
+                error(data, status, headers(), config);
+            });
+    }
+
+//            headers: {Authorization: 'Bearer ' + $cookieStore.get('access_token')}
+
     return{
         getAll: getAll,
         getCategories: getCategories,
@@ -359,6 +482,14 @@ adsApp.factory('publicData', function publicData($http) {
         adminApproveAd: adminApproveAd,
         adminRejectAd: adminRejectAd,
         adminEditAd: adminEditAd,
-        adminDeleteAd: adminDeleteAd
+        adminDeleteAd: adminDeleteAd,
+        adminGetUsers: adminGetUsers,
+        adminEditUserMain: adminEditUserMain,
+        adminEditUserPass: adminEditUserPass,
+        adminDeleteUser: adminDeleteUser,
+        adminEditCategory: adminEditCategory,
+        adminDeleteCategory: adminDeleteCategory,
+        adminEditTown:adminEditTown,
+        adminDeleteTown:adminDeleteTown
     }
 });

@@ -1,0 +1,65 @@
+<section class="row">
+    <article class="col-md-6">
+        <a class="btn btn-primary" ng-click="addCategory()">{{isAddClicked?'Hide':'Add Category'}}</a>
+    <span ng-show="isAddClicked"><input type="text" ng-model="newCategoryAdd.name" placeholder="Name"
+                                        ng-enter="submitCategory(newCategoryAdd,'POST')">On Enter Event</span>
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody ng-controller="Categories">
+            <tr ng-repeat="category in categories">
+                <td>{{category.id}}</td>
+                <td id="{{category.id}}">
+                    <span ng-hide="isEditClicked{{category.id}}">{{newCategory.name?newCategory.name:category.name}}</span>
+                <span ng-show="isEditClicked{{category.id}}"><input type="text" ng-model="newCategory.name"
+                                                                    ng-enter="newCategory.id=category.id ;submitCategory(newCategory,'PUT')"/></span>
+                </td>
+                <td>
+                    <a class="btn btn-primary" ng-hide="isEditClicked{{category.id}}"
+                       ng-click="newCategory.name = newCategory.name?newCategory.name:category.name; editCategory(category.id,'PUT')">Edit</a>
+                    <a class="btn btn-primary" ng-show="isEditClicked{{category.id}}"
+                       ng-click="newCategory.id=category.id; submitCategory(newCategory,'PUT')">Submit</a>
+                    <a class="btn btn-primary" ng-click="adminModalDeleteCategory(category)">Delete</a></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+
+    <article class="col-md-6">
+        <a class="btn btn-primary" ng-click="addTown()">{{isAddTownClicked?'Hide':'Add Town'}}</a>
+    <span ng-show="isAddTownClicked"><input type="text" ng-model="newTownAdd.name" placeholder="Name"
+                                        ng-enter="submitTown(newTownAdd,'POST')">On Enter Event</span>
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Town</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody ng-controller="Towns">
+            <tr ng-repeat="town in towns">
+                <td>{{town.id}}</td>
+                <td id="{{town.id}}">
+                    <span ng-hide="isEditClicked{{town.id}}">{{newTown.name?newTown.name:town.name}}</span>
+                <span ng-show="isEditClicked{{town.id}}"><input type="text" ng-model="newTown.name"
+                                                                    ng-enter="newTown.id=town.id ;submitTown(newTown,'PUT')"/></span>
+                </td>
+                <td>
+                    <a class="btn btn-primary" ng-hide="isEditClicked{{town.id}}"
+                       ng-click="newTown.name = newTown.name?newTown.name:town.name; editTown(town.id)">Edit</a>
+                    <a class="btn btn-primary" ng-show="isEditClicked{{town.id}}"
+                       ng-click="newTown.id=town.id; submitTown(newTown,'PUT')">Submit</a>
+                    <a class="btn btn-primary" ng-click="adminModalDeleteTown(town)">Delete</a></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+</section>

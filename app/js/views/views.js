@@ -41,9 +41,9 @@ adsApp.config(function ($routeProvider) {
             templateUrl: 'partials/users.html',
             controller:'Admin'
         })
-        .when('/admin/categories',
+        .when('/admin/categories-towns',
         {
-            templateUrl: 'partials/categories.html',
+            templateUrl: 'partials/categoriesAndTowns.html',
             controller:'Admin'
         })
         .when('/admin/towns',

@@ -1,0 +1,59 @@
+<div id="modalEdit">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <span class="col-md-5">New Password</span>
+                <input type="text" required class="col-md-6" style="margin: 0 14px;" placeholder="New password"
+                       ng-model="newDataSelectedUser.newPassword"/>
+            </div>
+            <div class="row">
+                <span class="col-md-5">Confirm new password</span>
+                <input type="text" required class="col-md-6" style="margin: 0 14px;" placeholder="Confirm Password"
+                       ng-model="newDataSelectedUser.confirmPassword"/>
+            </div>
+        </div>
+        <div name="editForm" class="col-md-6">
+            <div class="row">
+                <span class="col-md-2">Username</span>
+
+                <div class="col-md-9">{{ad.username}}</div>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Name</span>
+                <input type="text" required class="col-md-9" style="margin: 0 14px;" placeholder="{{ad.name}}" ng-model="newDataSelectedUser.name"/>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Email</span>
+                <input type="text" required class="col-md-9" style="margin: 0 14px;" placeholder="{{ad.email}}" ng-model="newDataSelectedUser.email"/>
+            </div>
+            <div class="row">
+                <span class="col-md-2">Phone</span>
+                <input type="text" required class="col-md-9" style="margin: 0 14px;" placeholder="{{ad.phoneNumber}}"
+                       ng-model="newDataSelectedUser.phoneNumber"/>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Town</div>
+                <div class="dropdown col-md-9">
+                    <select class="form-control" id="town" ng-model="newDataSelectedUser.townId" ng-controller="Towns">
+                        <option ng-repeat="town in towns" ng-selected="town.name == ad.townName"
+                                ng-init="newDataSelectedAd.townId = ad.name == user.townName?town.id:newDataSelectedUser.townId"
+                                value="{{town.id}}">
+                            {{town.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <input type="checkbox" ng-model="newDataSelectedUser.isAdmin"
+                       ng-init="newDataSelectedUser.isAdmin = ad.isAdmin ? true:false">Is Administrator
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="nav navbar-nav navbar-right col-md-7">
+            <span style="font-size: 30px; ">Edit this User?</span>
+            <button class="btn btn-primary" ng-click="adminEditUserOk(newDataSelectedUser)">Update Profile</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </ul>
+    </div>
+</div>

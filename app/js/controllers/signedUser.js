@@ -41,7 +41,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                 $scope.barLoged = true;
                 $scope.onErrorLogin = false;
                 logged = true;
-                if ($cookieStore.get('username') === 'admin') {
+                if ($scope.userData.isAdmin) {
                     isAdmin = true;
                     $scope.barLoged = false;
                     $scope.adminNav = true;
@@ -170,9 +170,9 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         getUserAds();
     }
 
-    $scope.modalDelete = function (selectedAd) {
+    $scope.adminModalDeleteUser = function (selectedAd) {
         var modalInstance = $modal.open({
-            templateUrl: 'partials/modalDelete.html',
+            templateUrl: 'partials/adminModalDeleteUser.html',
             controller: function ($scope, $modalInstance, ad) {
                 $scope.ad = ad;
 
