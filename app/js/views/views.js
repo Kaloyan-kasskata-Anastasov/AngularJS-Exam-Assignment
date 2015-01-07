@@ -23,10 +23,6 @@ adsApp.config(function ($routeProvider) {
         {
             templateUrl: 'partials/register.html'
         })
-        .when('/login',
-        {
-            templateUrl: 'partials/login.html'
-        })
         .when('/home',
         {
             templateUrl: 'partials/home.html'

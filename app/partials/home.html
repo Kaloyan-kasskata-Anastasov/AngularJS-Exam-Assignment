@@ -32,7 +32,7 @@
             </div>
             <nav class="col-md-12">
                 <label>Display items in page:</label>
-                <input class="col-md-10" type="number" ng-model="user.itemsPerPage" placeholder="posters displayed">
+                <input class="col-md-10" type="number" ng-model="user.itemsPerPage" placeholder="posters displayed" ng-enter="pageSizeChanged(user.itemsPerPage)">
                 <input class="col-md-10" type="submit" ng-click="pageSizeChanged(user.itemsPerPage)" value="Submit"/>
             </nav>
         </nav>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <img src="" ng-src="{{ad.imageDataUrl}}">
+                                <img ng-src="{{ad.imageDataUrl?ad.imageDataUrl:'images/No_image_available.svg'}}">
                             </div>
                             <div class="col-md-8">
                                 <div class="modul">
@@ -92,7 +92,7 @@
                     </li>
                 </ul>
             </div>
-            <pagination style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
+            <pagination  max-size="10" style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
                         ng-model="currentPage"
                         ng-click="pageChanged()"></pagination>
         </section>

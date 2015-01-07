@@ -16,7 +16,7 @@
         </div>
         <nav class="col-md-12">
             <label>Display items in page:</label>
-            <input class="col-md-10" type="number" ng-model="user.itemsPerPage" placeholder="posters displayed">
+            <input ng-enter="pageSizeChanged(user.itemsPerPage)" class="col-md-10" type="number" ng-model="user.itemsPerPage" placeholder="posters displayed">
             <input class="col-md-10" type="submit" ng-click="pageSizeChanged(user.itemsPerPage)" value="Submit"/>
         </nav>
     </nav>
@@ -81,14 +81,13 @@
                                 <a class="btn btn-primary col-md-12" ng-model="userAd.adId" ng-click="modalEdit(userAd)">Edit</a>
                                 <a class="btn btn-primary col-md-12" ng-disabled="{{userAd.status!='Inactive'}}" ng-model="userAd.adId" ng-click="publishAd(userAd)">Publish Again</a>
                                 <a class="btn btn-primary col-md-12" ng-model="userAd.adId" ng-click="modalDelete(userAd)">Delete</a>
-                                <!--ng-click="deleteAd(userAd)"-->
                             </ul>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <pagination style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
+        <pagination  max-size="10" style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
                     ng-model="currentPage"
                     ng-click="pageChanged()"></pagination>
     </section>

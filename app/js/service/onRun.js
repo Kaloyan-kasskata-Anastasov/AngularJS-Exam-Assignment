@@ -3,7 +3,8 @@ adsApp.run(function ($cookieStore) {
         logged = true;
         barOut = false;
         barLogged = true;
-        if($cookieStore.get('username')=='admin'){
+
+        if($cookieStore.get('isAdmin')){
             barLogged = false;
             isAdmin = true;
             adminNav = true;

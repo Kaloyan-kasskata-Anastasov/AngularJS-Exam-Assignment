@@ -20,11 +20,11 @@
             <div id="outNav" class="navbar-collapse navbar-responsive-collapse collapse out" aria-expanded="false">
                 <ul class="nav navbar-nav navbar-right col-md-6">
                     <form class="navbar-form navbar-left">
-                        <input type="text" class="form-control col-md-2" ng-model="user.username"
+                        <input ng-enter="login(user)" type="text" class="form-control col-md-2" ng-model="user.username"
                                placeholder="Username">
                     </form>
                     <form class="navbar-form navbar-left">
-                        <input type="password" class="form-control col-md-2" ng-model="user.password"
+                        <input ng-enter="login(user)" type="password" class="form-control col-md-2" ng-model="user.password"
                                placeholder="Password">
                     </form>
                     <li><a ng-href="#/user" ng-click="login(user)">Login</a></li>

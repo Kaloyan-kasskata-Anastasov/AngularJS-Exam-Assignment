@@ -11,10 +11,10 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
     $scope.adminNav = false;
 
     $scope.goTo = function (path) {
-        if (logged = true) {
+        if (logged == true) {
             $location.path('/user/' + path + '');
         }
-        if (logged = true && isAdmin == true) {
+        if (logged == true && isAdmin == true) {
             $location.path('/admin/' + path + '');
         }
     }
@@ -25,6 +25,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         $scope.adminNav = false;
         $cookieStore.remove('access_token');
         $cookieStore.remove('username');
+        $cookieStore.remove('isAdmin');
         $rootScope.userAds = {};
         $location.path('/home');
     }
@@ -36,6 +37,11 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                 $scope.userData = data;
                 $cookieStore.put('access_token', $scope.userData.access_token);
                 $cookieStore.put('username', $scope.userData.username);
+                if($scope.userData.isAdmin){
+                    $cookieStore.put('isAdmin',$scope.userData.isAdmin);
+                }
+
+                console.log($cookieStore.get('isAdmin'));
                 $location.path('/user/userPosters');
                 $scope.barOut = false;
                 $scope.barLoged = true;
@@ -213,6 +219,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         getUserAds();
     }
     $scope.modalEdit = function (selectedAd) {
+        console.log(selectedAd);
         var modalInstance = $modal.open({
             templateUrl: 'partials/modalEdit.html',
             controller: 'EditModule',

@@ -4,12 +4,12 @@
             <div class="row">
                 <span class="col-md-7" style="font-size: 26px;"><strong>{{ad.title}}</strong></span>
                         <span class="col-md-3">
-                            {{ad.date | date: 'hh-MMM-yyyy'}}
+                            {{ad.date | date: 'dd-MMM-yyyy'}}
                         </span>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <img src="" ng-src="{{userAd.imageDataUrl}}">
+                    <img id="imgDisplay" ng-src="{{ad.imageDataUrl?ad.imageDataUrl:'images/No_image_available.svg'}}">
                 </div>
                 <div class="col-md-7">
                     <div class="modul">

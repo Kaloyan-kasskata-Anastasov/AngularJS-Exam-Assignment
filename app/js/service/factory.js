@@ -57,6 +57,7 @@ adsApp.factory('publicData', function publicData($http, $cookieStore) {
             headers: {Authorization: 'Bearer ' + token}
         })
             .success(function (data, status, headers, config) {
+                window.scrollTo(0, 0);
 //                console.log("Paging");
                 success(data, status, headers(), config);
             })

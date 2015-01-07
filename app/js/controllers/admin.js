@@ -5,6 +5,7 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
     $scope.filter.town = '';
     $scope.filter.status = '';
     $scope.filter.sortBy = '';
+    $scope.currentPage = 1;
 
     $scope.filterAdminByCategory = function (category) {
         $scope.filter.category = category;
@@ -37,7 +38,7 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
             function (data, status, headers, config) {
                 $scope.data = data;
                 $scope.usersData = data;
-
+                window.scrollTo(0, 0);
             },
             function (error, status, headers, config) {
                 staticFuncs.alertFade('danger', 'Page request failed. Please try again later.');
@@ -49,7 +50,6 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
         publicData.adminGetAll(
             $cookieStore.get('access_token'),
             function (data, status, headers, config) {
-                $scope.currentPage = 1;
                 $scope.totalItems = data.numItems;
                 $scope.numberOfPages = data.numPages;
                 $scope.itemsPerPage = 7;
@@ -154,7 +154,6 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
 
     publicData.adminGetUsers(
         function (data, status, headers, config) {
-            $scope.currentPage = 1;
             $scope.totalItems = data.numItems;
             $scope.numberOfPages = data.numPages;
             $scope.itemsPerPage = 7;

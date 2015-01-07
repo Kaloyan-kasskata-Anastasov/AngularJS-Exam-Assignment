@@ -2,11 +2,10 @@ var categoryFilter = '';
 var townFilter = '';
 
 adsApp.controller('Main', function ($scope, publicData, $location, staticFuncs) {
-
+    $scope.currentPage = 1;
     function getAll() {
         publicData.getAll(
             function (data, status, headers, config) {
-                $scope.currentPage = 1;
                 $scope.totalItems = data.numItems;
                 $scope.numberOfPages = data.numPages;
                 $scope.itemsPerPage = 7;

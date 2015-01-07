@@ -58,21 +58,21 @@
             <label for="inputName" class="col-md-2 control-label">Name</label>
 
             <div class="col-md-10">
-                <input type="text" class="form-control" name="fullName" id="inputName" ng-model="newUser.name" >
+                <input type="text" ng-enter="editUserInfo(newUser)" class="form-control" name="fullName" id="inputName" ng-model="newUser.name" >
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail" class="col-md-2 control-label">Email</label>
 
             <div class="col-lg-10">
-                <input type="email" class="form-control" name="email" id="inputEmail" ng-model="newUser.email" placeholder="Email" >
+                <input type="email" ng-enter="editUserInfo(newUser)" class="form-control" name="email" id="inputEmail" ng-model="newUser.email" placeholder="Email" >
             </div>
         </div>
         <div class="form-group">
             <label for="inputPhone" class="col-md-2 control-label">Phone</label>
 
             <div class="col-lg-10">
-                <input type="tel" class="form-control" name="phone" id="inputPhone" ng-model="newUser.phoneNumber" placeholder="Phone" >
+                <input type="tel" ng-enter="editUserInfo(newUser)" class="form-control" name="phone" id="inputPhone" ng-model="newUser.phoneNumber" placeholder="Phone" >
             </div>
         </div>
 
@@ -80,7 +80,7 @@
             <label for="select" class="col-md-2 control-label">Town</label>
 
             <div class="col-md-10">
-                <select class="form-control" id="select" ng-model="newUser.townId" ng-controller="Towns">
+                <select ng-enter="editUserInfo(newUser)" class="form-control" id="select" ng-model="newUser.townId" ng-controller="Towns">
                     <option ng-repeat="town in towns" ng-selected="town.name == ad.townName"
                             ng-init="newUser.townId = town.name == ad.townName?town.id:newUser.townId"
                             value="{{town.id}}">

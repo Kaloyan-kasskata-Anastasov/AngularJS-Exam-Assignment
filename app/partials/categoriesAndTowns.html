@@ -1,8 +1,10 @@
 <section class="row">
     <article class="col-md-6">
         <a class="btn btn-primary" ng-click="addCategory()">{{isAddClicked?'Hide':'Add Category'}}</a>
-    <span ng-show="isAddClicked"><input type="text" ng-model="newCategoryAdd.name" placeholder="Name"
-                                        ng-enter="submitCategory(newCategoryAdd,'POST')">On Enter Event</span>
+        <span ng-show="isAddClicked">
+            <input type="text" ng-model="newCategoryAdd.name" placeholder="Name"
+                   ng-enter="submitCategory(newCategoryAdd,'POST')">On Enter Event
+        </span>
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
@@ -34,7 +36,7 @@
     <article class="col-md-6">
         <a class="btn btn-primary" ng-click="addTown()">{{isAddTownClicked?'Hide':'Add Town'}}</a>
     <span ng-show="isAddTownClicked"><input type="text" ng-model="newTownAdd.name" placeholder="Name"
-                                        ng-enter="submitTown(newTownAdd,'POST')">On Enter Event</span>
+                                            ng-enter="submitTown(newTownAdd,'POST')">On Enter Event</span>
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
@@ -49,7 +51,7 @@
                 <td id="{{town.id}}">
                     <span ng-hide="isEditClicked{{town.id}}">{{newTown.name?newTown.name:town.name}}</span>
                 <span ng-show="isEditClicked{{town.id}}"><input type="text" ng-model="newTown.name"
-                                                                    ng-enter="newTown.id=town.id ;submitTown(newTown,'PUT')"/></span>
+                                                                ng-enter="newTown.id=town.id ;submitTown(newTown,'PUT')"/></span>
                 </td>
                 <td>
                     <a class="btn btn-primary" ng-hide="isEditClicked{{town.id}}"
