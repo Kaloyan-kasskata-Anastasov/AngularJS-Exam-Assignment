@@ -52,6 +52,9 @@
         </nav>
     </nav>
     <section class="col-md-10">
+        <pagination  max-size="10" style="margin:5px auto;" total-items="totalItems" items-per-page="itemsPerPage"
+                     ng-model="currentPage"
+                     ng-click="pageChanged('admin/ads')"></pagination>
         <div class="row">
             <ul class="col-md-12">
                 <li ng-repeat="ad in data.ads">

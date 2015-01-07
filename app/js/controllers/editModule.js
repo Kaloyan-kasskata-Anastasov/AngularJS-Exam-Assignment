@@ -86,6 +86,7 @@ adsApp.controller('EditModule', function ($scope, $modalInstance, ad, publicData
             updateAd,
             function (data, status, headers, config) {
                 staticFuncs.alertFade('success', data.message);
+
             },
             function (error, status, headers, config) {
                 staticFuncs.alertFade('danger', 'Edit request failed. Please try again later.');

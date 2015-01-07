@@ -63,6 +63,8 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
                     $scope.filter.sortBy,
                     function (data, status, headers, config) {
                         $scope.data = data;
+                        window.scrollTo(0, 0);
+
                     },
                     function (error, status, headers, config) {
                         staticFuncs.alertFade('danger', 'Page request failed. Please try again later.');
