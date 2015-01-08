@@ -196,7 +196,6 @@ adsApp.controller('Admin', function ($scope, publicData, $cookieStore, staticFun
             user,
             function (data, status, headers, config) {
                 $scope.usersData = data;
-                console.log($scope.usersData);
             },
             function (error, status, headers, config) {
                 staticFuncs.alertFade('danger', 'Page request failed. Please try again later.');

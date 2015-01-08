@@ -4,7 +4,7 @@
             <img ng-src="{{ad.imageDataUrl}}" id="imgDisplay" />
 
             <div class="row">
-                <span>{{ad.date | date: 'dd-MMM-yyyy'}}</span>
+                <span>{{newDataSelectedAd.date | date: 'HH:MM dd-MMM-yyyy'}}</span>
             </div>
         </div>
         <div name="editForm" class="col-md-8">
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-md-2">Date</div>
                 <div class="col-md-9">
-                    <input type="date" ng-model="newDataSelectedAd.data" ng-selected="ad.date" required/>
+                    <input type="date" ng-model="newDataSelectedAd.date"/>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
     <div class="row">
         <ul class="nav navbar-nav navbar-right col-md-7">
             <span style="font-size: 30px; ">Edit this Poster?</span>
-            <button class="btn btn-primary" ng-click="adminOk(newDataSelectedAd)">OK</button>
+            <button class="btn btn-primary"s ng-click="adminOk(newDataSelectedAd)">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </ul>
     </div>

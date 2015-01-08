@@ -15,7 +15,11 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
             $location.path('/user/' + path + '');
         }
         if (logged == true && isAdmin == true) {
-            $location.path('/admin/' + path + '');
+            if(path=='userPosters'){
+                $location.path('/user/' + path + '');
+            }else{
+                $location.path('/admin/' + path + '');
+            }
         }
     }
 
@@ -41,7 +45,6 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                     $cookieStore.put('isAdmin',$scope.userData.isAdmin);
                 }
 
-                console.log($cookieStore.get('isAdmin'));
                 $location.path('/user/userPosters');
                 $scope.barOut = false;
                 $scope.barLoged = true;
@@ -219,7 +222,6 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         getUserAds();
     }
     $scope.modalEdit = function (selectedAd) {
-        console.log(selectedAd);
         var modalInstance = $modal.open({
             templateUrl: 'partials/modalEdit.html',
             controller: 'EditModule',

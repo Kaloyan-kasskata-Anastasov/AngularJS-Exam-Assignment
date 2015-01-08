@@ -77,7 +77,6 @@ adsApp.controller('EditModule', function ($scope, $modalInstance, ad, publicData
                 break;
         }
         var updateAd = {changeImage: changeImage, date: $scope.newDataSelectedAd.date, status: $scope.newDataSelectedAd.status, title: title, text: text, categoryId: categoryId, id: id, imageDataURL: imageDataURL, townId: townId};
-        console.log(updateAd.date);
 
 
         publicData.adminEditAd(
@@ -96,7 +95,6 @@ adsApp.controller('EditModule', function ($scope, $modalInstance, ad, publicData
     };
 
     $scope.adminEditUserOk = function (newDataSelectedUser) {
-        console.log(newDataSelectedUser);
         publicData.adminEditUserMain(
             newDataSelectedUser,
             function (data, status, headers, config) {
