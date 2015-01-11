@@ -55,7 +55,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
                     $scope.barLoged = false;
                     $scope.adminNav = true;
                     $scope.user.username = '';
-                    $location.path('/user/allPosters');
+                    $location.path('/admin/home');
                 }
                 $scope.username = $cookieStore.get('username');
                 staticFuncs.alertFade('success', 'Login success');
