@@ -161,6 +161,40 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         );
     }
 
+    $scope.modalDelete = function (selectedAd) {
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/modalDelete.html',
+            controller: function ($scope, $modalInstance, ad) {
+                $scope.ad = ad;
+
+                $scope.ok = function () {
+                    publicData.deleteUserAd(
+                        $cookieStore.get('access_token'),
+                        selectedAd.id,
+                        function (data, status, headers, config) {
+                            staticFuncs.alertFade('success', data.message);
+                            getUserAds();
+                        },
+                        function (error, status, headers, config) {
+                            staticFuncs.alertFade('danger', 'Delete Poster request failed. Please try again later.');
+                        }
+                    );
+                    $modalInstance.close();
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.close();
+                };
+            },
+            size: 'lg',
+            resolve: {
+                ad: function () {
+                    return selectedAd;
+                }
+            }
+        });
+    };
+
     function deleteAd(data) {
         publicData.deleteUserAd(
             $cookieStore.get('access_token'),
@@ -179,29 +213,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         getUserAds();
     }
 
-    $scope.adminModalDeleteUser = function (selectedAd) {
-        var modalInstance = $modal.open({
-            templateUrl: 'partials/adminModalDeleteUser.html',
-            controller: function ($scope, $modalInstance, ad) {
-                $scope.ad = ad;
-
-                $scope.ok = function () {
-                    deleteAd(selectedAd);
-                    $modalInstance.close();
-                };
-
-                $scope.cancel = function () {
-                    $modalInstance.close();
-                };
-            },
-            size: 'lg',
-            resolve: {
-                ad: function () {
-                    return selectedAd;
-                }
-            }
-        });
-    };
+    
 
     function editAd(data) {
         publicData.editUserAd(
