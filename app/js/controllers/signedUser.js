@@ -213,7 +213,7 @@ adsApp.controller('SignedUser', function ($scope, publicData, $rootScope, $locat
         getUserAds();
     }
 
-    
+
 
     function editAd(data) {
         publicData.editUserAd(
